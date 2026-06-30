@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema de Análise v2.0</title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+        background:#0f172a;
+        color:#fff;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        padding:20px;
+    }
+
+    .container{
+        width:100%;
+        max-width:700px;
+        background:#111827;
+        border:2px solid #334155;
+        border-radius:20px;
+        padding:30px;
+        box-shadow:0 0 30px rgba(0,0,0,.5);
+    }
+
+    h1{
+        text-align:center;
+        margin-bottom:25px;
+        color:#38bdf8;
+    }
+
+    .terminal{
+        background:#020617;
+        border-radius:12px;
+        padding:20px;
+        min-height:260px;
+        border:1px solid #1e293b;
+    }
+
+    .line{
+        margin:10px 0;
+        opacity:0;
+        transform:translateY(10px);
+        transition:.5s;
+    }
+
+    .line.show{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+    .success{
+        color:#22c55e;
+    }
+
+    .warning{
+        color:#facc15;
+    }
+
+    .result{
+        color:#fb7185;
+        font-size:1.2rem;
+        margin-top:20px;
+        font-weight:bold;
+    }
+
+    button{
+        width:100%;
+        margin-top:25px;
+        padding:15px;
+        border:none;
+        border-radius:12px;
+        background:#2563eb;
+        color:white;
+        font-size:1rem;
+        cursor:pointer;
+        transition:.3s;
+    }
+
+    button:hover{
+        background:#1d4ed8;
+    }
+
+    .progress{
+        width:100%;
+        height:12px;
+        background:#1e293b;
+        border-radius:20px;
+        overflow:hidden;
+        margin:20px 0;
+    }
+
+    .bar{
+        width:0%;
+        height:100%;
+        background:linear-gradient(90deg,#38bdf8,#2563eb);
+        transition:width .4s;
+    }
+
+    .footer{
+        text-align:center;
+        margin-top:20px;
+        color:#64748b;
+        font-size:.9rem;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🛰️ Sistema de Análise v2.0</h1>
+
+    <div class="terminal" id="terminal">
+        <div class="progress">
+            <div class="bar" id="bar"></div>
+        </div>
+
+        <div class="line" id="l1">📡 Iniciando varredura...</div>
+        <div class="line" id="l2">📂 Verificando conversas recentes...</div>
+        <div class="line success" id="l3">✔ Humor detectado</div>
+        <div class="line success" id="l4">✔ Simpatia acima da média</div>
+        <div class="line success" id="l5">✔ Sorriso perigoso para a concentração alheia</div>
+        <div class="line warning" id="l6">⚠ Nível de beleza excede os limites do sistema</div>
+        <div class="line" id="l7">🧠 Consultando eu, eu mesmo e minha consciência...</div>
+        <div class="line result" id="l8">📢 Resultado final: Depois de uma longa análise, foi decidido por unanimidade que você continua sendo a melhor distração que apareceu nos meus dias. ❤️</div>
+    </div>
+
+    <button onclick="iniciarAnalise()">Iniciar análise</button>
+
+    <div class="footer">
+        Sistema Operacional dos Pensamentos • Versão 2.0
+    </div>
+</div>
+
+<script>
+function iniciarAnalise(){
+
+    const linhas = [
+        document.getElementById('l1'),
+        document.getElementById('l2'),
+        document.getElementById('l3'),
+        document.getElementById('l4'),
+        document.getElementById('l5'),
+        document.getElementById('l6'),
+        document.getElementById('l7'),
+        document.getElementById('l8')
+    ];
+
+    const barra = document.getElementById('bar');
+
+    linhas.forEach(l => l.classList.remove('show'));
+    barra.style.width = '0%';
+
+    const porcentagens = [10,25,40,55,70,85,95,100];
+
+    linhas.forEach((linha, index) => {
+        setTimeout(() => {
+            linha.classList.add('show');
+            barra.style.width = porcentagens[index] + '%';
+        }, index * 900);
+    });
+}
+</script>
+
+</body>
+</html>
