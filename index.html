@@ -3,174 +3,251 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistema de Análise </title>
+
+<title>Departamento de Assuntos Importantes</title>
+
+<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
 
 <style>
-    *{
-        margin:0;
-        padding:0;
-        box-sizing:border-box;
-        font-family: Arial, Helvetica, sans-serif;
-    }
 
-    body{
-        background:#0f172a;
-        color:#fff;
-        height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        padding:20px;
-    }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
 
-    .container{
-        width:100%;
-        max-width:700px;
-        background:#111827;
-        border:2px solid #334155;
-        border-radius:20px;
-        padding:30px;
-        box-shadow:0 0 30px rgba(0,0,0,.5);
-    }
+body{
+    background:#020617;
+    color:#fff;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
 
-    h1{
-        text-align:center;
-        margin-bottom:25px;
-        color:#38bdf8;
-    }
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at top,#1d4ed8 0%,transparent 45%),
+    radial-gradient(circle at bottom,#0f172a 0%,transparent 50%);
+    opacity:.35;
+}
 
-    .terminal{
-        background:#020617;
-        border-radius:12px;
-        padding:20px;
-        min-height:260px;
-        border:1px solid #1e293b;
-    }
+.container{
+    width:95%;
+    max-width:760px;
+    background:rgba(15,23,42,.9);
+    backdrop-filter:blur(15px);
+    border:1px solid #334155;
+    border-radius:22px;
+    padding:30px;
+    box-shadow:0 0 40px rgba(0,0,0,.5);
+    z-index:1;
+}
 
-    .line{
-        margin:10px 0;
-        opacity:0;
-        transform:translateY(10px);
-        transition:.5s;
-    }
+h1{
+    color:#38bdf8;
+    text-align:center;
+    margin-bottom:8px;
+}
 
-    .line.show{
-        opacity:1;
-        transform:translateY(0);
-    }
+.sub{
+    text-align:center;
+    color:#94a3b8;
+    margin-bottom:25px;
+}
 
-    .success{
-        color:#22c55e;
-    }
+.progress{
+    width:100%;
+    height:12px;
+    background:#1e293b;
+    border-radius:50px;
+    overflow:hidden;
+    margin-bottom:25px;
+}
 
-    .warning{
-        color:#facc15;
-    }
+.bar{
+    width:0%;
+    height:100%;
+    transition:.6s;
+    background:linear-gradient(90deg,#38bdf8,#2563eb);
+}
 
-    .result{
-        color:#fb7185;
-        font-size:1.2rem;
-        margin-top:20px;
-        font-weight:bold;
-    }
+.terminal{
+    background:#000814;
+    border:1px solid #1e293b;
+    border-radius:15px;
+    padding:20px;
+    min-height:300px;
+    font-family:monospace;
+}
 
-    button{
-        width:100%;
-        margin-top:25px;
-        padding:15px;
-        border:none;
-        border-radius:12px;
-        background:#2563eb;
-        color:white;
-        font-size:1rem;
-        cursor:pointer;
-        transition:.3s;
-    }
+.line{
+    margin:12px 0;
+    opacity:0;
+    transform:translateY(8px);
+    transition:.4s;
+}
 
-    button:hover{
-        background:#1d4ed8;
-    }
+.show{
+    opacity:1;
+    transform:translateY(0);
+}
 
-    .progress{
-        width:100%;
-        height:12px;
-        background:#1e293b;
-        border-radius:20px;
-        overflow:hidden;
-        margin:20px 0;
-    }
+.success{
+    color:#22c55e;
+}
 
-    .bar{
-        width:0%;
-        height:100%;
-        background:linear-gradient(90deg,#38bdf8,#2563eb);
-        transition:width .4s;
-    }
+.warning{
+    color:#facc15;
+}
 
-    .footer{
-        text-align:center;
-        margin-top:20px;
-        color:#64748b;
-        font-size:.9rem;
-    }
+.error{
+    color:#ef4444;
+}
+
+.result{
+    color:#fb7185;
+    font-size:1.15rem;
+    font-weight:bold;
+    margin-top:18px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    margin-top:25px;
+    border:none;
+    border-radius:14px;
+    background:#2563eb;
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.02);
+    background:#1d4ed8;
+}
+
+.footer{
+    margin-top:20px;
+    text-align:center;
+    color:#64748b;
+    font-size:.9rem;
+}
+
+.cursor{
+    display:inline-block;
+    width:8px;
+    background:#38bdf8;
+    animation:piscar .8s infinite;
+}
+
+@keyframes piscar{
+50%{
+opacity:0;
+}
+}
+
 </style>
 </head>
+
 <body>
 
 <div class="container">
-    <h1>🛰️ Sistema de Análise </h1>
 
-    <div class="terminal" id="terminal">
-        <div class="progress">
-            <div class="bar" id="bar"></div>
-        </div>
+<h1>🛰️ Departamento de Assuntos Importantes</h1>
 
-        <div class="line" id="l1">📡 Iniciando varredura...</div>
-        <div class="line" id="l2">📂 Verificando conversas recentes...</div>
-        <div class="line success" id="l3">✔ Humor detectado</div>
-        <div class="line success" id="l4">✔ Simpatia acima da média</div>
-        <div class="line success" id="l5">✔ Sorriso perigoso para a concentração alheia</div>
-        <div class="line warning" id="l6">⚠ Nível de beleza excede os limites do sistema</div>
-        <div class="line" id="l7">🧠 Consultando eu, eu mesmo e minha consciência...</div>
-        <div class="line result" id="l8">📢 Resultado final: Depois de uma longa análise, foi decidido por unanimidade que você continua sendo a melhor distração que apareceu nos meus dias. ❤️</div>
-    </div>
+<div class="sub">
+PROTOCOLO Nº 000001
+</div>
 
-    <button onclick="iniciarAnalise()">Iniciar análise</button>
+<div class="progress">
+<div class="bar" id="bar"></div>
+</div>
 
-    <div class="footer">
-        Sistema Operacional dos Pensamentos 
-       
-    </div>
+<div class="terminal">
+
+<div class="line" id="l1">📡 Inicializando sistema...</div>
+
+<div class="line" id="l2">🔍 Procurando registros recentes...</div>
+
+<div class="line success" id="l3">✔ Conversas localizadas.</div>
+
+<div class="line success" id="l4">✔ Sorrisos detectados durante as conversas.</div>
+
+<div class="line success" id="l5">✔ Nível de simpatia acima da média.</div>
+
+<div class="line warning" id="l6">⚠ Quantidade incomum de pensamentos envolvendo você.</div>
+
+<div class="line" id="l7">🧠 Consultando eu, eu mesmo e minha consciência...</div> 
+   <div class="line result" id="l8">
+📢 Veredito Final:<br><br>
+
+Após analisar todos os registros, revisar cada conversa, consultar minha consciência e considerar todas as evidências disponíveis...
+
+o sistema chegou a uma única conclusão possível.
+
+❤️ Você continua sendo uma das melhores coincidências que aconteceram nos meus dias.
+
+Processo encerrado com sucesso.
+</div>
+
+</div>
+
+<button onclick="iniciarAnalise()">
+▶ Iniciar investigação
+</button>
+
+<div class="footer">
+Sistema Operacional dos Pensamentos • Versão 2.0
+</div>
+
 </div>
 
 <script>
+
 function iniciarAnalise(){
 
-    const linhas = [
-        document.getElementById('l1'),
-        document.getElementById('l2'),
-        document.getElementById('l3'),
-        document.getElementById('l4'),
-        document.getElementById('l5'),
-        document.getElementById('l6'),
-        document.getElementById('l7'),
-        document.getElementById('l8')
-    ];
+const linhas=[
+document.getElementById("l1"),
+document.getElementById("l2"),
+document.getElementById("l3"),
+document.getElementById("l4"),
+document.getElementById("l5"),
+document.getElementById("l6"),
+document.getElementById("l7"),
+document.getElementById("l8")
+];
 
-    const barra = document.getElementById('bar');
+const barra=document.getElementById("bar");
 
-    linhas.forEach(l => l.classList.remove('show'));
-    barra.style.width = '0%';
+linhas.forEach(l=>l.classList.remove("show"));
 
-    const porcentagens = [10,25,40,55,70,85,95,100];
+barra.style.width="0%";
 
-    linhas.forEach((linha, index) => {
-        setTimeout(() => {
-            linha.classList.add('show');
-            barra.style.width = porcentagens[index] + '%';
-        }, index * 900);
-    });
+const porcentagem=[8,20,35,50,65,80,92,100];
+
+linhas.forEach((linha,index)=>{
+
+setTimeout(()=>{
+
+linha.classList.add("show");
+
+barra.style.width=porcentagem[index]+"%";
+
+},index*1200);
+
+});
+
 }
+
 </script>
 
 </body>
